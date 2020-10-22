@@ -1,0 +1,4 @@
+dvips $1.dvi -o
+./ps2a5 $1.ps 
+xprint -P4-thcom $12.ps
+#rm $1.ps

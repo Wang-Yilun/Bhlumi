@@ -1,0 +1,26 @@
+#!/bin/csh
+#
+#PBS -s /bin/csh 
+#PBS -lt  64800             # time limit (sec) max 56000
+#PBS -eo                    # merger std error and out
+#PBS -r <dset>.<farmindex>  # request name
+#PBS -lf  10mb              # output file size limit
+#PBS -me                    # send mail upon termination
+#PBS -t HP                  # only HP
+#-----------------------------------------------------------------------
+#
+set dset=<dset>
+#
+# ======== WORK DIRECTORIES               
+set pthfarm=<pthfarm>
+set pthlocal=$pthfarm/<farmindex>
+#
+# ========= EXECUTION ========= 
+#
+cd ${pthlocal}
+time ../${dset}.exe < ./${dset}.data
+# ========= COPYING   =========
+cp bhl.output ${dset}.output
+cp bhl.hst    ${dset}.hst
+#
+exit 0          

@@ -1,0 +1,17 @@
+#!/bin/csh
+# @ notify_user = jadach@mail.cern.ch
+# @ class = <class>
+# @ preferences=(Feature=="lowio")
+#######################################
+#
+cd <pthfarm>/<farmindex>
+# ========= backup   =========
+cp semaphore  semaphore.bak
+cp bhl.hst    bhl.hst.bak
+cp bhl.output bhl.output.bak
+# ========= EXECUTION ========= 
+#
+time ../<dset>.exe <  ./<dset>.data 
+#
+#
+exit 0          

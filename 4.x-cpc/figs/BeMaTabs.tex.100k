@@ -1,0 +1,102 @@
+\documentstyle[12pt,html]{article}
+\textwidth  = 16cm
+\textheight = 18cm
+\begin{document}
+  
+ 
+ 
+% ========================================
+% ============ begin table ===============
+\begin{table}[!ht]
+\centering
+\caption{\footnotesize\sf
+This is from the output file 4.x-cpc/figs/BeMaTabs.tex.         
+Total cross sections for various symmetric Wide-Wide,           
+event selections from BHLUMI, in nanobarn units.                
+BHLUM4$_{pht}$ and BHLUM4$_{ZVP}$ denote standard multiphoton   
+BHLUMI event generator.                                         
+OBI+LMG denotes so-called OLDBIS+LUMLOG$_{h.o.}$                
+additive recipe while                                           
+BHLPV follows SABSPV multiplicative recipe                      
+realized using OLDBIS and LUMLOG cross section.                 
+Only in BHLUM4$_{ZVP}$ Z exchange, up-down                      
+interference and vacuum polarization are switched on.           
+Center of mass energy $\protect\sqrt{s}=92.3 GeV$.              
+Not calculated cross sections set to zero.                      
+% end-of-caption                                                
+}
+\begin{tabular}                            {||c|c|c|c|c||}
+\hline\hline
+$z_{min}$       &
+ BHLUM4$_{pht}$ &
+ OBI+LMG        &
+ BHLPV          &
+ BHLUM4$_{ZVP}$ 
+\\
+\hline
+& \multicolumn{ 4}{c||}{
+      (a) BARE1, $Born = 175.977 nb$                                  }
+\\
+\hline
+$      .100$ & $   166.707\pm    .895$ & $   161.872\pm   2.019$ & $   162.151\pm   2.304$ & $      .000\pm    .000$
+\\
+$      .300$ & $   165.280\pm    .894$ & $   160.452\pm   2.016$ & $   160.773\pm   2.282$ & $      .000\pm    .000$
+\\
+$      .500$ & $   162.470\pm    .893$ & $   157.873\pm   2.009$ & $   158.259\pm   2.246$ & $      .000\pm    .000$
+\\
+$      .700$ & $   155.838\pm    .888$ & $   150.835\pm   1.988$ & $   151.441\pm   2.161$ & $      .000\pm    .000$
+\\
+$      .900$ & $   137.416\pm    .862$ & $   132.626\pm   1.904$ & $   133.743\pm   1.923$ & $      .000\pm    .000$
+\\
+\hline
+& \multicolumn{ 4}{c||}{
+      (c) CALO2, $Born = 140.018 nb$                                  }
+\\
+\hline
+$      .100$ & $   132.228\pm    .820$ & $   127.796\pm   1.819$ & $   128.060\pm   2.092$ & $   137.385\pm    .852$
+\\
+$      .300$ & $   131.888\pm    .820$ & $   127.404\pm   1.818$ & $   127.687\pm   2.091$ & $   137.033\pm    .851$
+\\
+$      .500$ & $   131.277\pm    .819$ & $   126.837\pm   1.817$ & $   127.147\pm   2.088$ & $   136.398\pm    .851$
+\\
+$      .700$ & $   128.572\pm    .816$ & $   123.763\pm   1.808$ & $   124.232\pm   2.060$ & $   133.589\pm    .848$
+\\
+$      .900$ & $   119.353\pm    .800$ & $   114.263\pm   1.765$ & $   115.379\pm   1.945$ & $   124.002\pm    .831$
+\\
+\hline
+& \multicolumn{ 4}{c||}{
+      (d) SICAL2, $Born = 140.018 nb$                                 }
+\\
+\hline
+$      .100$ & $   133.164\pm    .820$ & $   128.632\pm   1.821$ & $   128.857\pm   2.093$ & $   138.358\pm    .852$
+\\
+$      .300$ & $   132.934\pm    .820$ & $   128.477\pm   1.820$ & $   128.708\pm   2.092$ & $   138.119\pm    .852$
+\\
+$      .500$ & $   132.486\pm    .820$ & $   128.161\pm   1.820$ & $   128.405\pm   2.090$ & $   137.654\pm    .852$
+\\
+$      .700$ & $   129.252\pm    .817$ & $   124.714\pm   1.810$ & $   125.124\pm   2.062$ & $   134.294\pm    .848$
+\\
+$      .900$ & $   119.581\pm    .800$ & $   114.621\pm   1.766$ & $   115.696\pm   1.946$ & $   124.237\pm    .831$
+\\
+\hline
+& \multicolumn{ 4}{c||}{
+      (e) SICAL, $Born = 140.018 nb$                                  }
+\\
+\hline
+$      .100$ & $   132.627\pm    .820$ & $   128.135\pm   1.820$ & $   128.383\pm   2.092$ & $   137.801\pm    .852$
+\\
+$      .300$ & $   132.591\pm    .820$ & $   128.099\pm   1.819$ & $   128.348\pm   2.091$ & $   137.764\pm    .852$
+\\
+$      .500$ & $   132.390\pm    .820$ & $   127.978\pm   1.819$ & $   128.232\pm   2.091$ & $   137.554\pm    .852$
+\\
+$      .700$ & $   129.790\pm    .817$ & $   125.065\pm   1.810$ & $   125.456\pm   2.064$ & $   134.854\pm    .849$
+\\
+$      .900$ & $   120.918\pm    .802$ & $   116.002\pm   1.770$ & $   116.932\pm   1.951$ & $   125.628\pm    .833$
+\\
+\hline\hline
+\end{tabular}
+\end{table}
+% ============= end   table ==============
+% ========================================
+\newpage
+\end{document}

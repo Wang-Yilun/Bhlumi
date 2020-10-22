@@ -1,0 +1,59 @@
+#!/bin/csh
+#!set echo
+#|-----------------------------------------------------------------
+#| by S. Jadach. Jan. 95
+#|
+#| SPECIAL VERSION FOR prod1 ONLY: 
+#|       local data-set file with various energies
+#|
+#| This script CREATES series of subdirectories for calculation
+#| on the computer farm (SP-2, CSF, BASTA, SHIFT)
+#| It is invoked like that:
+#|              farm-init prod2 "1 2 3 4 5 6" SP
+#| or           farm-init prod2 "1 2 3 4 5 6" CSF
+#|-----------------------------------------------------------------
+set   dset=$1
+set   farmdir=$PWD/farm
+set   class=medium
+#|-----------------------------------------------------------------
+#| create work directory
+mkdir $farmdir
+#| copy common exe and data files into it
+cp   ../demo2.exe    $farmdir/$dset.exe
+#|-----------------------------------------------------------------
+#| create several subdirectories with own random-number-seed
+#| and its own execution-script (using template file and sed utility)
+foreach i ( $2 )
+    set subdir=$farmdir/$i
+    mkdir $subdir
+    cp  ../semaphore.start      $subdir/semaphore
+    cp  ../iniseed/iniseed.$i   $subdir/iniseed
+#| Some strings are replaced in the EXECUTION template file
+    sed   -e      's#<dset>#'$dset'#'g \
+          -e     's#<class>#'$class'#'g \
+          -e   's#<pthfarm>#'$farmdir'#'g \
+          -e 's#<farmindex>#'$i'#'g \
+           ../farm$3.cmd.template  > $subdir/$dset.cmd.$i
+#| Some strings are replaced in the DATA template file
+    set energy=00.000D0
+    if( $i == '1')  set energy=89.312D0
+    if( $i == '2')  set energy=89.687D0
+    if( $i == '3')  set energy=90.062D0
+    if( $i == '4')  set energy=90.437D0
+    if( $i == '5')  set energy=90.812D0
+    if( $i == '6')  set energy=91.187D0
+    if( $i == '7')  set energy=91.562D0
+    if( $i == '8')  set energy=91.937D0
+    if( $i == '9')  set energy=92.312D0
+    if( $i == '10') set energy=92.687D0
+    sed   -e 's#91.187D0 CMSENE#'$energy' CMSENE#' \
+          -e 's#2000000000 NEVT#   2000000 NEVT#' \
+           ./$dset.data  > $subdir/$dset.data
+end
+#| show results
+set echo
+ls -altr $farmdir/
+ls -altr $farmdir/*/
+#|-----------------------------------------------------------------
+exit 0
+ 

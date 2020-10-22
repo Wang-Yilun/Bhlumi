@@ -1,0 +1,121 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  Missing Third-Order Leading-Log Corrections   %%
+%%  in the Small-Angle Bhabha Calculation         %%
+%%  Two figures                                   %%
+%%                                                %%
+%%  make Fig-MisO3-ps                             %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%======================
+% make Fig-MisO3.dvi
+% make Fig-MisO3-dvi
+% make Fig-MisO3.ps
+% make Fig-MisO3-ps
+%======================
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[12pt]{article}        %%%%%%%%%%%%%%%%%%
+                                     %%%%%%%%%%%%%%%%%%
+
+
+% The epsfig.sty is necessary to manage figures in postscript!
+\usepackage{epsfig}
+
+
+% The html.sty is irrelevant for normal LeTeX processissig,
+% it helps in the translation LeTeX->html of figures using l2hcern.
+\usepackage{html}
+
+% Page paremeters
+\textwidth  = 16cm
+\textheight = 22cm
+\hoffset    = -1cm
+\voffset    = -1cm
+
+
+%%%=================local=macros=========================
+\def\Order#1{${\cal O}(#1)$}
+\def\Ordex#1{${\cal O}(#1)_{exp}$}
+%%%======================================================
+ 
+\begin{document}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[!th]
+\centering
+\htmlimage{scale=1.6}
+%----------------------------
+\setlength{\unitlength}{0.1mm}
+\begin{picture}(1600,1600)
+%%\put(0,0){\framebox( 1600,1600){ }}
+%##### 
+\put(-20, 00){\makebox(0,0)[lb]{
+\epsfig{file=MisOgam3-SICAL2.eps,width=80mm,height=78mm}
+}}
+%#####
+\put(780, 00){\makebox(0,0)[lb]{
+\epsfig{file=MisOgam3-SICAL.eps,width=80mm,height=78mm}
+}}
+%#####
+\put(-20, 800){\makebox(0,0)[lb]{
+\epsfig{file=MisOgam3-BARE1.eps,width=80mm,height=78mm}
+}}
+%#####
+\put(780, 800){\makebox(0,0)[lb]{
+\epsfig{file=MisOgam3-CALO2.eps,width=80mm,height=78mm}
+}}
+\end{picture}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\caption{\small\sf
+  Missing photonic leading-log
+  \protect\Order{\alpha^3}  contribution $\sigma_{Miss.}$
+  in the multi-photon MCEG BHLUMI~4.x calculated
+  for various types of event selections
+  using the MCEG LUMLOG 4.x.
+% end-of-caption
+}
+\label{fig:misO3}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[!th]
+\centering
+\htmlimage{scale=1.6}
+%----------------------------
+\setlength{\unitlength}{0.1mm}
+\begin{picture}(1600, 800)
+%\put(0,0){\framebox( 1600, 800){ }}
+%##### 
+\put(-20, 00){\makebox(0,0)[lb]{
+\epsfig{file=MisOgam3u-BARE1.eps,width=80mm,height=78mm}
+}}
+%#####
+\put(780, 00){\makebox(0,0)[lb]{
+\epsfig{file=MisOgam3u-SICAL.eps,width=80mm,height=78mm}
+}}
+\end{picture}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\caption{\small\sf
+  Missing photonic leading-log
+  \protect\Order{\alpha^3}  contribution $\sigma_{Miss.}$
+  in the second-order BHLUMI 4.x without exponentiation calculated
+  for various types of event selections
+  using the LUMLOG 4.x.
+% end-of-caption
+}
+\label{fig:misO3u}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}
+

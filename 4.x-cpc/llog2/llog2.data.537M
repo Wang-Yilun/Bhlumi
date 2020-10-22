@@ -1,0 +1,20 @@
+prod2 llog2 ==================== Data set for LUMLOG test =========
+ 0 1 0 0 0 0 0 0    KAT1,KAT2,KAT3,KAT4,KAT5,KAT6,KAT7,KAT8
+  84000000      NEVT
+      2011      KEYOPT =1000*KEYGEN +10*KEYWGT +KEYRND 
+       103      KEYRAD =1000*KEYFIN +10*KEYTES+ KEYBLO
+         2      KEYTRI
+    92.3D0      CMSENE
+    .024d0      Tming   theta_min [rad]    genaration 
+    .060d0      Tmaxg   theta_max          generation
+  0.9999D0      VMAXG   v_max              generation
+      1D-4      XK0     eps_CMS            generation
+      .024      TminW   theta_min  sical   trigger wide
+      .058      TmaxW   theta_max  sical   trigger wide
+      .024      TminN   theta_min          trigger narrow 
+      .058      TminN   theta_max          trigger narrow
+     0.5D0      VMAXE   v_max              trigger maximum v
+        32      NPHI    nphi       sical   trigger no of phi   sect. 
+        16      NTHE    ntheta     sical   trigger no of theta sect.
+=================== the end of data set BHLOG ==============
+

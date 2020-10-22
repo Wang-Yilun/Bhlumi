@@ -1,0 +1,17 @@
+#!/bin/csh
+set echo
+#|-----------------------------------------------------------------
+#| by S. Jadach. Jan. 95
+#| This script copies bhl.hst into dataname.hst for series of jobs
+#| on the computer farm
+#| It is invoked like that:
+#|              farm-cphst prod2 "1 2 3 4 5 6"
+#|-----------------------------------------------------------------
+set   farmdir=$PWD/farm
+#|-----------------------------------------------------------------
+foreach i ( $2 )
+     cp $farmdir/$i/semaphore     $farmdir/$i/semaphore.bak
+     cp $farmdir/$i/dumphst.hst   $farmdir/$i/bhl.hst
+end
+exit 0
+ 

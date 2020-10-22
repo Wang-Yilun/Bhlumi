@@ -1,0 +1,259 @@
+=============================================================================
+-----------------------------------------------------------------------------
+                                README
+-----------------------------------------------------------------------------
+=============================================================================
+
+SLAC, November 2002.
+This is updated version of Bhlumi 4.04 for linux platforms.
+Corrected compilation flags in makefiles, some fortran codding in lib/glibk.f.
+Output files like 4.x-cpc/demo/demo.output.100k.keypia.eq.2.keywgt.eq.0.linux
+are now included. Enjoy! S.J. for authors.
+
+*****************************************************************************
+DOCUMENTATION:
+
+For the complete Long-Write-Up (TH/96-158) see
+http://wwwcn.cern.ch/~jadach
+and also comments in the source code, for example in the files: 
+bhlp-4x/4.x-cpc/400/bhlum4.f, bhlumi.f, modl2a.f, modl2b.f
+Postscript files for all relevant papers available from 
+http://hpjmiady.ifj.edu.pl/programs/programs.html
+http://hpjmiady.ifj.edu.pl/papers/papers.html
+
+
+HOW TO START TO USE THE PROGRAM?
+
+The simplest thing you can do on the UNIX workstation is:
+   > cd bhlp-4.x-cpc/4.x-cpc
+   > make demo
+On hp9000 or rs6000 installations the program should run immediately and it
+will produce an output file bhlp-4.x-cpc/4.x-cpc/demo/demo.output 
+and some plots bhlp-4.x-cpc/4.x-cpc/demo/demo.tex.
+(The other platforms were tested for previous versions so in principle
+there should not be any problems).
+If LaTeX and xdvi are available then plots will pop up instanteniously on
+your screen.
+In this case you are executing the main program bhlp-4.x-cpc/4.x-cpc/demo.f.
+This is an instructive example on how to set up input parameters
+and run BHLUMI with variable/constant weights
+or how to calculate the difference between  versions 2.01 and 4.x.
+Moreover, the cross section printed in demo.output should be identical
+(within statistical errors) with certain entries from the tables in the 
+LEP2 workshop (1996) proceedings. 
+See Long-Write-Up and comments in demo.f for more details.
+
+With Latex/xdvi you may run immediately graphics demo-programs,
+which will read archive histograms from our long runs, as follows:
+(see below, 'Tips for non-IBM platforms' before runing!)
+>   make arch-BeMaTabs-dvi	(1) CPC table  benchmark
+>   make arch-BeMaFigs-dvi	(2) CPC figure benchmark
+>   make arch-makfig1-dvi	(3) Z-contribution, th/95-74 plot
+>   make arch-makfig2-dvi	(4) th/95-38 plots, Bhlumi-(Oldbis+Lumlog)
+>   make arch-makfig4-dvi	(5) th/96-156 plots, Missing O(alf3)LL
+>   make arch-Fig-MisO3-ps	(6) again th/96-156, Missing O(alf3)LL
+>   make arch-makfig3-dvi	(7) exercise on dummy parameters in MC
+This will show you pre-prepared plots based on stored (pre-generated)
+results of the long MC runs.
+The (1)-st and (2)-nd produce table and 2 figures in Long-Write-up.
+These are benchmarks to be used to calibrate the program.
+The (3) produces fig. 5 from CERN-TH/95-74 for Z contribution.
+The (4) is plotting published comparisons Bhlum2-(Oldbis+Lumlog_h.o.)
+for SICAL and OSiW detectors of paper CERN-TH/95-38.
+However, some results from the actual program will differ from CERN-TH/95-38
+plots due to bug 95a which was present in version 4.02
+and is corrected here in the present version 4.04.
+The (5) and (6) plots main results of CERN-TH/96-156 paper on missing
+third order LL results.
+And finally the (7) presents results of the exercise
+on the independence of MC results on dummy parameters in the MC program.
+
+IF YOU WANT TO RUN OUR EXAMPLE OF THE USER-PROGRAM FOR BHLUMI:
+
+Then use the following commands:
+   > cd bhlp-4.x-cpc/4.x-cpc
+   > make prod2-start
+This will execute link and  run demo2.f main program, histograms will
+be stored on the disk in data-directory prod2.
+Production can be stopped any time (after 1 hour?) with
+   > make prod2-stop
+resulting histos will be stored in bhlp-4.x-cpc/4.x-cpc/prod2
+   > make prod2-dvi
+will show samples of histograms from the run.
+
+The same can be done for OLDBIS and LUMLOG:
+   > make obis2-start
+   > make obis2-stop
+   > make obis2-dvi
+and
+   > make llog2-start
+   > make llog2-stop
+   > make llog2-dvi
+Results from the above runs for statistics high enough can be used for
+viewing benchmarks
+   > make BeMaTabs-dvi
+   > make BeMaFigs-dvi
+and the reader can also reproduce by himself
+all essential results (figures) from papers th/95-74, th/95-38
+and th/96-156 with:
+   > make makfig2-dvi
+   > make makfig4-dvi
+   > make Fig-MisO3-ps
+These tests require very high statistics (10^9 events)
+and we therefore included scripts fot running demo2.f on 
+any typical computer farm.
+
+
+
+RUNNING ON A FARM:
+
+We have included execution scripts for running on
+the SP-2, CSF, SHIFT, and BASTA farms.
+For example in order to run demo2.f for multiphoton BHLUM4
+on SP-2 in CERN 12 jobs in parallel:
+   > cd prod2
+   > make farm12-SP
+   > make llsubmit12
+even before jobs terminate you may view partial results with
+   > make combine12
+which adds histograms from all 12 jobs and
+   > (cd ../figs; make prod2-dvi)
+The very similar set of commands can be used to run OLDBIS and LUMLOG.
+
+
+TOPOGRAPHY OF THE DIRECTORY:
+
+bhlp-4.x-cpc/4.x-cpc     Main working directory with demo's
+bhlp-4.x-cpc/400/        Monte Carlo event generator
+bhlp-4.x-cpc/lib/        Tools for Monte Carlo and for histogramming
+bhlp-4.x-cpc/dok/        documentation in postscript
+
+
+TIPS FOR NON-IBM PLATFORMS
+
+In some plotting routines in bhlp-4.x-cpc/4.x-cpc/figs double backslashes
+has to be replaced with the single ones. 
+Try the following:
+>  cd bhlp-4.x-cpc/4.x-cpc/figs
+>  make ibm-to-hp
+
+
+Good luck!
+See also below list of old and new corrections.
+   
+             Authors of BHLUMI
+
+PS. Questions to Stanislaw.Jadach@cern.ch
+
+=============================================================================
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+=============================================================================
+
+                       ===================
+                         Corrections Log
+                       ===================
+
+
+Version 4.04,  15 Sept. 1996.
+****************************
+    Many cosmetic corrections with respect to previous version 4.03.
+    Some numerically insignificant errors in new LUMLOG are corrected.
+
+Version 4.03,  30 March 1996.
+****************************
+    New total error estimate 0.11%, see Bhabha Working Group article
+    in LEP2 workshop proceedings and the summary article in Phys. Lett.
+
+    This version corresponds exactly to the ones used during the LEP2
+    Workshop 1995 (Bhabha working group). The main difference with version 4.02
+    is correction of the LL bug 95a. This correction was introduced in
+    in July 1995 and all LEP2 WG  proceedings results are not affected
+    by the bug. Many cosmetic corrections are also done.
+    According to LEP2 WG conclusions the total theoretical error estimate 
+    is something like 0.11-0.12%.
+
+    The new LUMLOG with the final state bremsstrahlung and LL emulation
+    of the BHLUM4 appears for the first time.
+    This new LUMLOG is heavily exploited in TH/96-156 which calculates
+    missing third-order LL in BHLUM4 to be negligible.
+
+
+Version 4.02,  15 May 1995.
+***************************
+
+    New total error estimate 0.15%, see CERN-TH/95-38, (Phys.Lett.)
+
+    Z-contribution according to CERN-TH/95-74 (to appear in P.L.) included.
+    See routine 400/m2agzi.f and production directory 4.x-cpc/prod1.
+    You may try 'make plot1' in 4.x-cpc/figs in order to reproduce Fig. 5
+    in the paper CERN-TH/95-74.
+
+    Vacuum polarization now available in THREE versions, 
+    according to H. Burkhardt et.al. 1989 (as in BHLUMI 2.x)
+    according to S. Eidelman, F. Jegerlehner, Z. Phys. C (1995)
+    and according to Burkhardt and Pietrzyk, 1995 (Moriond).
+    See description of KeyPia in the file bhlum4.f.
+
+    Many small corrections suggested by users.
+
+Corrections suggested by the users:
+-----------------------------------
+
+Alex Read, 8 Mar 1995, said:
+>> use double quotes for character strings
+>> in fortran .... VMS gets completely
+>> confused. 
+Done, there should be no " any more.
+
+Alex Read, 8 Mar 1995, said:
+>> I have access to an AXP running OSF.
+>> The first thing I tried was the demo
+>> program - and it crashes almost immediately!
+>> ...Events with wt=0 are cleaned (all 4-momenta set to 0) and 
+>> ... divides by p2(3) and q2(3) which can definitely (may) be 0. 
+Corrected by screening with additional 
+    IF(wtcru1*wtcru2.NE.0d0) ... ENDIF
+
+Alex Read, 25 Nov 94, said:
+>> Marco   Bigi is theguy who
+>> found the bug and the correction of the bug in REMPHO ( which I attach
+>> to this message ) has been independently found by all the people who
+>> from DELPHI and OPAL have had a look at the problem after I
+>> asked if this had already been observed before.
+and also, 1 Dec 1994,
+>> ....the logic in MERGIK assumes that the NPHOT1+1 and
+>> NPHOT2+1 entries in PHOT1 and PHOT2 are 0 or at
+>> least below the energy cut set by EPSCM. Since
+>> this condition is not met 100% of the time, there
+>> is some small probability for taking, for example,
+>> the NPHOT1+1'th photon if it has energy larger than
+OK. I agree that it is a bug. 
+Sorry for confusion in the discussion in Dec.
+Corrected REMPHO using patch from Delphi.
+
+Alex Read, 29 Mar 1995, said:
+>> You have a call to VESK2W with mode=1
+>> (final result) with no events so that integral
+>> and error calculation causes harmless divide by zero -
+Cured by adding harmless CALL VESK2W(1,...) just before.
+
+Henryk Czyz, 6 May 1995, said:
+>>   Mam nastepny problem z LUMLOG....ponizej pewnej granicy
+>>   zmienne X1 i/lub X2 moga byc rowne zeru ....
+>>   procedure CLUSTE 'nie pracuje' gdy obydwa parametry, 
+>>   z ktorymi jest wywolywana, sa rowne zeru
+      DO 40 I=1,NP
+      THET=ANGFI(PP(3,I),DSQRT(PP(1,I)**2+PP(2,I)**2))
+      IF (THET.GT.THMIN .AND. THET.LT.THMAX) THEN
+The problem also mentioned by Alex read.
+Corrected by adding in CLUSTE
+      IF( (pp(3,i)**2+pp(1,i)**2+pp(2,i)**2) .GT. 0d0) THEN ! avoid 1/zero
+
+Version 4.01,  21 Feb 1995.
+***************************
+
+(a) Incorrect implementation of vacuum polarization and s-channel gamma
+    in routines modl2a and modl2b is now corrected.
+    We are grateful to Frank Filthaut of L3 for pointing out to us this bug.
+

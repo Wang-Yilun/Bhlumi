@@ -1,0 +1,38 @@
+##############################################################################
+#============================================================================
+#	make			creates general library glib.a for 
+#				MC generator and other programs
+#	make combine.exe	creates program for combining histograms
+#				in several storage files *.hst
+#============================================================================
+##############################################################################
+AR = ar
+RANLIB = ranlib
+LD = $(F77)
+F77 = g77
+############ collection of ibm  flags ########
+#FFLAGS  = -C -qextchk -qinitauto=FF  -bloadmap:lmap -qflttrap=overflow:underflow:zerodivide:invalid:enable
+###############################################
+# actual flags
+FFLAGS  =  -fno-automatic -ffixed-line-length-132 -fbackslash -C -O
+##############################################################################
+.f.o:
+	$(F77) $(FFLAGS) -c $<
+##############################################################################
+#============================================================================
+ARLIB1  =  glib.a 
+OBJECT1 =  glibk.o yfslib.o 
+$(ARLIB1): $(OBJECT1)
+	$(AR) rv  $(ARLIB1) $(OBJECT1)
+#============================================================================
+COMMAND = combine.exe
+OBJECTS = combine.o glibk.o 
+# Link procedure
+$(COMMAND): $(OBJECTS)
+	$(LD) -o $@ $(LDFLAGS) $(OBJECTS)
+#============================================================================
+all:	$(ARLIB1) 
+##############################################################################
+clean:
+	rm -f *.o; rm -f *.a; rm -f *~ 
+##############################################################################
