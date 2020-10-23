@@ -1,0 +1,136 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[12pt]{article}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{epsfig}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{euscript}
+
+\usepackage{fancybox}
+\usepackage{xcolor}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\input Energy.tex
+%\input Process.tex
+\def\Energy{92.3GeV}
+\def\Process{$e^+e^-\to e^+e^-$}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  copied from seminar.con
+\def\titbox#1{\begin{center}\doublebox{#1}\end{center}}
+
+\newcommand{\KK}{${\cal KK}$}
+%--------------------------------------------------------------
+\def\Order#1{${\cal O}(#1)$}
+\def\Ordpr#1{${\cal O}(#1)_{prag}$}
+\def\Oceex#1{${\cal O}(#1)_{_{\rm CEEX}}$}
+\def\Oeex#1{${\cal O}(#1)_{_{\rm EEX}}$}
+\def\OrderLL#1{${\cal O}(#1)_{\rm LL}$}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\textwidth  = 16cm % <-- maximum CERN
+\textheight = 22cm % <-- maximum CERN
+\hoffset    = -1cm
+\voffset    = -1cm
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}                     %%%%%%%%%%%%%%%%%%
+
+
+%//////////////////////////////////////////////////////////////////////////////////
+%//////////////////////////////////////////////////////////////////////////////////
+%//////////////////////////////////////////////////////////////////////////////////
+
+\section{Baseline benchmark, \today}
+WARNING: Tables are from machine produced LaTeX source.
+
+\begin{table}[!h]
+\begin{center}
+{\epsfig{file=TabOldBench.pdf,width=130mm}}
+\end{center}
+\caption{\sf
+{\bf Results from BHLUMI Monte Carlo for \Process\ at \Energy.}
+Reproducing Tables 14 and 16 in Proc. of workshop 1996.
+%%%%Here VP and Z are switched OFF.
+%
+Here VP and Z are switched ON.
+%%%%VP according to Burkhardt and Pietrzyk 1995 (Moriond).
+S. Eidelman, F. Jegerlehner, Z. Phys. C (1995)
+%
+Energy cut on $z_{\min}=s'/s$ for BARE1
+and $z_{\min}=4 E_1 E_2 /s$ for CALO2 and SICAL2.
+%
+%%%%Statistics 5G events (2h run on 24 processors).
+%%%%Statistics 8G events (3h run on 24 processors).
+Statistics 3G events (1h run on 24 processors).
+}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Vacuum polarization study...}
+
+\begin{table}[!h]
+\begin{center}
+{\epsfig{file=TabVP1.pdf,width=160mm}}
+\end{center}
+\caption{\sf
+Four types of total (hadronic + leptonic) VP function $\Pi(t)$
+calculated using routines of the BHLUMI MC.
+Angular range is that of narrow-narrow selection of the SICAL detector,
+i.e. with $\theta \in (0.02825, 0.0495)$.
+Here we use $\sqrt{s}=93.2$GeV for historical reasons.
+}
+\end{table}
+
+\begin{table}[!h]
+\begin{center}
+{\epsfig{file=TabVP2.pdf,width=80mm}}
+\end{center}
+\caption{\sf
+Born cross section study with VP off (raw No.1) and four types of VP on
+calculated using routines of the BHLUMI MC,
+together with errors due to VP provided also by these subprograms.
+VPs in the raws No. 2-5 are coming 
+in the same order as in previous Table.
+(Helmut89, Fred95, Bolek95, Fred17).
+The range of $t$ is again that of narrow-narrow SICAL acceptance.
+In the 2nd colum VP is averaged over angles while in 3rd column
+it is taken at the median transfer $t_{med} = 2/(1/t_1+1/t_2)$.
+Here we use $\sqrt{s}=93.2$GeV for historical reasons.
+}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\begin{table}[!h]
+\begin{center}
+{\epsfig{file=TabVP3.pdf,width=160mm}}
+\end{center}
+\caption{\sf
+Full table of vacuum polarization used in all versions of BHLUMI 
+and its error in the entire angular range of all LEP detectors.
+This reproduced Tables 5 and 6 in workshop 1996
+(except last column which is new).
+The error in Burkhardt89 was set to be 4\% of the hadronic part.
+Here we use $\sqrt{s}=91.224$GeV to translate from angle to transfer $t$
+(as in workshop96).
+}
+\end{table}
+
+\end{document}
+
+
+

@@ -1,0 +1,86 @@
+{
+///============================================================================
+///
+/// This is configuration/initialization script for ../MainKKMC main program
+/// To start MC run in the interactive mode just type "make start" 
+///
+/// This series of calculations integrates a given distribution 
+/// by using MC methods
+///============================================================================
+gROOT->Reset();
+cout<<"%%% ================== Start.C ================== %%%%"<<endl;
+gSystem->Load("../.libs/libProd.so");
+//gSystem->Load("../../6xx/.libs/libBHL6.so");
+TFile HistoFile("histo.root","RECREATE","Histograms");
+TFile GenFile(  "mcgen.root","RECREATE","r.n.generator, MCgens");
+TFile SemFile(  "semaf.root","RECREATE","Semaphore");
+///*****************************************************************
+////*****************************************************************
+///   Create new instance of Semaphore object
+///   and fill it with the MC run general parameters
+TString semaf   = "START";
+double nevtot   = 1e12; // 1000G
+//nevtot = 10e6;
+double nevgrp   = 5e5; // 500k
+///------------------------------------------------------------------
+SemFile.cd();
+TSemaf *Semafor = new TSemaf(semaf, nevtot, nevgrp);
+Semafor->Write("Semafor",TObject::kOverwrite);
+SemFile.Write();
+SemFile.Close();
+///*****************************************************************
+///*****************************************************************
+///       Create new instance of RN generator and initialize it
+GenFile.cd();
+TRandom *RN_gen = new TRandom3();       // Central r.n.gen.
+long    iniseed = 54217137;
+iniseed = 46785717;
+RN_gen->SetSeed(iniseed);
+RN_gen->Write("RN_gen",TObject::kOverwrite);
+///*****************************************************************
+///*****************************************************************
+///      Create new instance of MC generator
+TMCgenBHL6 *MCgen = new TMCgenBHL6("MCgen");
+// ---------------- BHLUMI4 input params ------------------------------
+//########### Change some input parameters ###########
+MCgen->m_CMSENE  =  93.000e0; //  CMSENE
+MCgen->m_angmin  =  0.022;    //  theta_min [rad]   generation
+MCgen->m_angmax  =  0.160;    //  theta_max [rad]   generation
+//---------------------------------------------------------------------
+// NPAR( 1) = KeyOpt =1000*KeyGen +100*KeyRem +10*KeyWgt +KeyRnd =3121
+MCgen->m_KeyGen =3;  // =3 for BHLUMI
+MCgen->m_KeyRem =0;  // =1 no-removal simpler/safer, =0 OBLIGATORY for KeyZet =1 !!!
+MCgen->m_KeyWgt =2;  // =0, WTMOD =1 for exper. =1, WTMOD variable, faster/safer, RECOMMENDED
+                     // =2, WTMOD variable, events below trmin generated
+MCgen->m_KeyRnd =1;  // =1,2 type of random number generator RANMAR,RANECU
+// NPAR( 2) = KeyRad =1000*KeyZet +100*KeyUpd +10*KeyMod +KeyPia = 20
+MCgen->m_KeyZet =1; // =0 Z contribution, OFF =1 Z contribution ON, DEFAULT!
+MCgen->m_KeyMod =2; // =1 QED as in CPC70(1992)305, =2 version 4.x DEFAULT!
+MCgen->m_KeyPia =3; // =0 OFF, for tests,  =1 Burkhardt et.al. 1989, as in BHLUMI 2.0x
+                    // =2 S. Eidelman, F. Jegerlehner, Z. Phys. C (1995)
+                    // =3 ON,  Burkhardt and Pietrzyk 1995 (Moriond).
+//####################################################
+MCgen->ls();
+MCgen->Write("MCgen",TObject::kOverwrite);
+///*****************************************************************
+///*****************************************************************
+///       Create new instance of the MC analysis object
+TRobolProd *RoboT = new TRobolProd("RoboT");  /// base clase only
+// Parameters of the detectors
+RoboT->m_TminF  =     .024;    //  fidutial angle theta_min
+RoboT->m_TmaxF  =     .058;    //  fidutial angle theta_max
+RoboT->f_HistNormName = "HST_BHL_NORMA"; // Name of normalization histo
+RoboT->Write("RoboT",TObject::kOverwrite);
+///*****************************************************************
+GenFile.Write();
+cout<<"---------------------------------------------------------"<<endl;
+GenFile.Close();
+///*****************************************************************
+///*****************************************************************
+cout << "===========Output written in histo.root===========" << endl;
+HistoFile.Write();
+HistoFile.ls();
+HistoFile.Close();
+cout<<"%%% ===============End Start.C ================== %%%%"<<endl;
+return 0;
+}
