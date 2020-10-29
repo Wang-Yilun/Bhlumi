@@ -38,10 +38,10 @@ $(EXTER_LIB1): $(PTL1)/*.f
 # FFLAGS  =  -C -qextchk -qinitauto=FF -bloadmap:lmap -qflttrap=overflow:underflow:zerodivide:invalid:enable
 # LDFLAGS =  -C -qextchk -qinitauto=FF -bloadmap:lmap -qflttrap=overflow:underflow:zerodivide:invalid:enable
 ########### actual flags
-FFLAGS  = -O
+FFLAGS  =  -fno-automatic -ffixed-line-length-132 -fbackslash -C -O
 LDFLAGS = -O
 #----------------------------------------------------------------------
-F77 = f77
+F77 = gfortran
 LD  = $(F77)
 #----------------------------------------------------------------------
 ##############################################################################

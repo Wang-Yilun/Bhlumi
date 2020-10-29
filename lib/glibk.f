@@ -1772,7 +1772,7 @@
       NOUH2=NOUH1+1
       IF( ABS(lint) .EQ. 0) THEN
 ! Normal mode
-         WRITE(NOUH1,'(A,A)') BS,'documentstyle[12pt,html]{article}'
+         WRITE(NOUH1,'(A,A)') BS,'documentstyle[12pt]{article}'
          WRITE(NOUH1,'(A,A)') BS,'textwidth  = 16cm'
          WRITE(NOUH1,'(A,A)') BS,'textheight = 18cm'
          WRITE(NOUH1,'(A,A)') BS,'begin{document}'
@@ -1785,7 +1785,6 @@
          WRITE(NOUH1,'(A,A)') BS,'documentclass[12pt]{article}'
          WRITE(NOUH1,'(A,A)') BS,'usepackage{amstex}'
          WRITE(NOUH1,'(A,A)') BS,'usepackage{amssymb}'
-         WRITE(NOUH1,'(A,A)') BS,'usepackage{html}'
          WRITE(NOUH1,'(A,A)') BS,'usepackage{epsfig}'
          WRITE(NOUH1,'(A,A)') BS,'usepackage{epic}'
          WRITE(NOUH1,'(A,A)') BS,'usepackage{eepic}'
@@ -2599,7 +2598,6 @@ c##      CHARACTER chxfmt*(*),chyfmt*(*)
       ELSE
          WRITE(NOUH1,'(2A)') BS,'begin{figure}[!ht]'
          WRITE(NOUH1,'(2A)') BS,'centering'
-         WRITE(NOUH1,'(2A)') BS,'htmlimage{scale=1.4}'
       ENDIF
 !------------------------------!
 ! General Caption
