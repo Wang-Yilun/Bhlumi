@@ -18,13 +18,15 @@
       IMPLICIT DOUBLE PRECISION(A-H,O-Z) 
 * histograms in labeled common   
       COMMON / cglib / b(50000)
+
 * Initialization of histograming package --
 * here we use double precision HBOOK-like histograming/plotting
 * package GLIBK written by S. Jadach, (1990-96),  unpublished.
       CALL glimit(50000) 
 !
 !
-! Sophisticated demonstration program
+      
+      !Sophisticated demonstration program
       CALL Bhldem2
 
       END
@@ -37,7 +39,8 @@
       COMMON / inout  / ninp,nout
       CHARACTER*4 Semaph
       CHARACTER*5 tname,dname
-!
+
+!     
 !---------------
 ! General Output for everybody including Glibk
       nout =16
@@ -52,6 +55,10 @@
       WRITE(nout,*) '==========*********************==============='
       WRITE(nout,*) '=============================================='
       WRITE(nout,*) '   '
+
+
+
+      
 !---------------
 ! Standard Input          
       ninp =5
@@ -166,7 +173,10 @@ C     ************************
       COMMON / PARGEN / CMSENE,TMING,TMAXG,VMAXG,XK0,KEYOPT,KEYRAD
       COMMON / PAROBL / NPHI,NTHE,TMINW,TMAXW,TMINN,TMAXN,VMAXE,KEYTRI
       DIMENSION NPAR(100),XPAR(100)
-!
+      INTEGER m_WriteLHE
+      m_WriteLHE=1
+      
+!     
       WRITE(NOUT,*) '   '
       WRITE(NOUT,*) '========================================='
       WRITE(NOUT,*) '==========****************==============='
@@ -247,6 +257,22 @@ C     ************************
       IF(KAT1.EQ.1) CALL ROBOL1(-1)      
       IF(KAT2.EQ.1) CALL ROBOL2(-1)      
 
+!     LHE FILE
+
+      IF(m_WriteLHE .EQ. 1) THEN
+         OPEN(77, file = "out.lhe")
+         WRITE(77, '(a)')'<LesHouchesEvents version="1.0">'
+         WRITE(77, '(a)')'<!--'
+         WRITE(77, '(a)')'   File Created with KKMC'
+         WRITE(77, '(a)')'-->'
+         WRITE(77, '(a)')'<init>'
+         WRITE(77, '(A, es17.8, A, es17.8, A)' )'  11  -11  ', CMSENE/2.,'  ', CMSENE/2. , '  0  0  0  0  3  1'
+         WRITE(77, '(a)')'  0.1  1.0e-06  1.000000e+00   9999'
+         WRITE(77, '(a)')'</init>'
+         WRITE(77, '(a)')'  '
+
+      END IF
+      
       WRITE(6,'(F10.2,A)') NEVT/1.E6,' Mega-events requested'
       WRITE(6,*)  ' =======> Generation starts...'
 !-------------------------------------------------------!
@@ -260,7 +286,8 @@ C     ************************
           IF(MOD(IEV, NGROUP).EQ.1) WRITE( 6,*)  'IEV= ',IEV 
           CALL BHLUMI(   0,XPAR,NPAR)  
           IF(IEV.LE. 4) CALL DUMPS( 6)       
-          IF(IEV.LE. 4) CALL DUMPS(16) 
+          IF(IEV.LE. 4) CALL DUMPS(16)
+          IF( m_WriteLHE .EQ. 1) CALL WRITE_LHE(77) 
 !         ============================================
 !         Histograming 
           IF(KAT1.EQ.1) CALL ROBOL1( 0) 
@@ -281,7 +308,10 @@ C     ************************
 !                 Final activity                        !
 !-------------------------------------------------------!
       IF(KAT1.EQ.1) CALL ROBOL1( 1)  
-      IF(KAT2.EQ.1) CALL ROBOL2( 1)  
+      IF(KAT2.EQ.1) CALL ROBOL2( 1)
+      IF( m_WriteLHE .EQ. 1) THEN
+         WRITE(77, '(a)') '</LesHouchesEvents>'
+      ENDIF
       END
 
 

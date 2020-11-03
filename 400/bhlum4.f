@@ -268,7 +268,9 @@
 !%%%%  TRMX2 = TRMAX !!! only for tests with fixed TRAN 
 !*******************************************************************
 !     *********************************   
+
       IMPLICIT REAL*8(A-H,O-Z)   
+      INTEGER           m_EvtUnit, m_WriteLHE
       PARAMETER( PI = 3.1415926535897932D0, ALFINV = 137.03604D0)
       PARAMETER( ALFPI=  1D0/PI/ALFINV ,ALFA=1D0/ALFINV)
       PARAMETER( GNANOB=389.385D-30*1.D33 )
@@ -296,7 +298,7 @@
       COMMON / MOMSET / PX1(4),QX1(4),PX2(4),QX2(4),PHOT(100,4),NPHOT
       COMMON / WGTALL / WTMOD,WTCRU1,WTCRU2,WTSET(300)        
       COMMON / WGTSUP / WKP,WKQ,WTT1,WTT2,FPHS,FYFSU,FYFSD,WT3
-      COMMON / INOUT  / NINP,NOUT 
+      COMMON / INOUT  / NINP,NOUT
       SAVE   / BHPAR1 /, / BHPAR2 /, / BHPAR3 /, / CMONIT/, / TRANSR / 
       SAVE   / MOMS1  /, / MOMS2  /, / MOMZ1  /, / MOMZ2 /, / MOMSET /
       SAVE   / WGTALL /, / WGTSUP /, / INOUT  /
@@ -304,11 +306,15 @@
       SAVE   IDGEN, NEVGEN, IEVENT, SIG0, SIG0NB
       SAVE   KeyWgt, KeyRem, KeyUpd
       DOUBLE PRECISION DRVEC(100)
-   
+      
+      m_EvtUnit = 77 
+
+      
       IF(MODE.EQ.-1) THEN        
 !     ===================
       CALL FILBH2(XPAR,NPAR)       
-! This is Generator Identificator
+      
+!This is Generator Identificator
       IDGEN = 3        
       SVAR=CMSENE**2 
 !       
@@ -1303,6 +1309,46 @@
   210 SUM(K)=SUM(K)+PHOT(I,K)    
       WRITE(NOUT,3100) 'SUM',(SUM(K),K=1,4)           
  3100 FORMAT(1X,A3,1X,5F18.13)   
-      END   
+      END
+      
 
 
+      SUBROUTINE WRITE_LHE(m_EvtUnit)
+!     **********************
+! THIS PRINTS OUT FOUR MOMENTA OF PHOTONS
+! ON OUTPUT UNIT NOUT
+      IMPLICIT REAL*8(A-H,O-Z)
+      INTEGER nhep
+      DOUBLE PRECISION AlphaQED, AlphaQCD, mass_e, p_e
+      COMMON / MOMSET / P1(4),Q1(4),P2(4),Q2(4),PHOT(100,4),NPHOT
+      SAVE   / MOMSET /
+      REAL*8 SUM(4)
+
+      mass_e=5.118E-004
+      p_e= SQRT(((CMSENE/2.)**2-mass_e**2))
+
+      AlphaQCD=0.1201789
+      AlphaQED=137.03604D0
+      
+
+      WRITE(m_EvtUnit,'(a)')  '<event>'
+      nhep=NPHOT+5
+      
+      ! nphotons+5, 2 incomming electrons 2 outgoing electrons and 1 photon/z
+      WRITE(m_EvtUnit,*) nhep, 9999, 1., CMSENE, 1./AlphaQED, AlphaQCD 
+      !WRITE(m_EvtUnit,*) 11, -1, 0, 0, 0, 0., 0., p_e, CMSENE/2., mass_e, 0 , 0
+      !WRITE(m_EvtUnit,*) -11, -1, 0, 0, 0, 0., 0., -p_e, CMSENE/2., mass_e, 0 , 0 
+      WRITE(m_EvtUnit,*) 11, -1, 0, 0, 0, Q1(1), Q1(2), Q1(3), Q1(4), mass_e, 0 , 0  
+      WRITE(m_EvtUnit,*) -11, -1, 0, 0, 0, P1(1), P1(2), P1(3), P1(4), mass_e, 0 , 0 
+      WRITE(m_EvtUnit,*) 23, 2, 1, 2, 0, 0., 0., 0., CMSENE/2., CMSENE/2., 0, 0
+! what is written above is a dummy, it's there just to make LHE file, but it's not actuall simulation
+      DO I=1,NPHOT
+         WRITE(m_EvtUnit,*) 22, 1 , 0, 0, 0 ,0, PHOT(I,1), PHOT(I,2), PHOT(I,3), PHOT(I,4), 0, 0 
+      ENDDO
+      WRITE(m_EvtUnit,*) 11,  1, 3, 3, 0, Q2(1), Q2(2), Q2(3), Q2(4), mass_e, 0 , 0
+      WRITE(m_EvtUnit,*) -11, 1, 3, 3, 0, P2(1), P2(2), P2(3), P2(4), mass_e, 0 , 0
+      
+      
+      WRITE(m_EvtUnit,'(a)')  '</event>'
+
+      END

@@ -1,6 +1,6 @@
 prod2 prod2 llog2 obis2   =========Data set for BHLUM2 test============
  0 1 0 0 0 0 0 0    KAT1,KAT2,KAT3,KAT4,KAT5,KAT6,KAT7,KAT8
-  84000000 NEVT
+      1000      NEVT
       3121      KEYOPT = 1000*KEYGEN +100*KEYREM +10*KEYWGT +KEYRND
         20      KEYRAD =              100*KEYUPD +10*KEYMOD +KEYPIA 
          2      KEYTRI  Obsolete!!!
