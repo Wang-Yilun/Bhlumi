@@ -1311,8 +1311,28 @@
  3100 FORMAT(1X,A3,1X,5F18.13)   
       END
       
+      SUBROUTINE INIT_LHE(m_EvtUnit, CMSENE)
+      ! subrutine that inits the LHE file
 
+      OPEN(m_EvtUnit, file = "out.lhe")
+      WRITE(m_EvtUnit, '(a)')'<LesHouchesEvents version="1.0">'
+      WRITE(m_EvtUnit, '(a)')'<!--'
+      WRITE(m_EvtUnit, '(a)')'   File Created with KKMC'
+      WRITE(m_EvtUnit, '(a)')'-->'
+      WRITE(m_EvtUnit, '(a)')'<init>'
+      WRITE(m_EvtUnit, '(A, es17.8, A, es17.8, A)' )'  11  -11  ', CMSENE/2.,'  ', CMSENE/2. , '  0  0  0  0  3  1'  
+      WRITE(m_EvtUnit, '(a)')'  0.1  1.0e-06  1.000000e+00   9999'                                                   
+      WRITE(m_EvtUnit, '(a)')'</init>'                                                                               
+      WRITE(m_EvtUnit, '(a)')'  '                                                                                    
 
+      END
+      
+      SUBROUTINE END_LHE(m_EvtUnit)
+      ! subrutine that ends the LHE file   
+      WRITE(m_EvtUnit, '(a)') '</LesHouchesEvents>'
+
+      END
+      
       SUBROUTINE WRITE_LHE(m_EvtUnit)
 !     **********************
 ! THIS PRINTS OUT FOUR MOMENTA OF PHOTONS
@@ -1352,3 +1372,4 @@
       WRITE(m_EvtUnit,'(a)')  '</event>'
 
       END
+      

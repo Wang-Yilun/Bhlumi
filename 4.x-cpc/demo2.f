@@ -260,16 +260,7 @@ C     ************************
 !     LHE FILE
 
       IF(m_WriteLHE .EQ. 1) THEN
-         OPEN(77, file = "out.lhe")
-         WRITE(77, '(a)')'<LesHouchesEvents version="1.0">'
-         WRITE(77, '(a)')'<!--'
-         WRITE(77, '(a)')'   File Created with KKMC'
-         WRITE(77, '(a)')'-->'
-         WRITE(77, '(a)')'<init>'
-         WRITE(77, '(A, es17.8, A, es17.8, A)' )'  11  -11  ', CMSENE/2.,'  ', CMSENE/2. , '  0  0  0  0  3  1'
-         WRITE(77, '(a)')'  0.1  1.0e-06  1.000000e+00   9999'
-         WRITE(77, '(a)')'</init>'
-         WRITE(77, '(a)')'  '
+         CALL INIT_LHE(77, CMSENE)
 
       END IF
       
@@ -310,7 +301,7 @@ C     ************************
       IF(KAT1.EQ.1) CALL ROBOL1( 1)  
       IF(KAT2.EQ.1) CALL ROBOL2( 1)
       IF( m_WriteLHE .EQ. 1) THEN
-         WRITE(77, '(a)') '</LesHouchesEvents>'
+         CALLEND_LHE(77)
       ENDIF
       END
 
