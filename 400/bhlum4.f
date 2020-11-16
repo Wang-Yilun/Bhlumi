@@ -1313,11 +1313,12 @@
       
       SUBROUTINE INIT_LHE(m_EvtUnit, CMSENE)
       ! subrutine that inits the LHE file
-
+      DOUBLE PRECISION CMSENE
+      
       OPEN(m_EvtUnit, file = "out.lhe")
       WRITE(m_EvtUnit, '(a)')'<LesHouchesEvents version="1.0">'
       WRITE(m_EvtUnit, '(a)')'<!--'
-      WRITE(m_EvtUnit, '(a)')'   File Created with KKMC'
+      WRITE(m_EvtUnit, '(a)')'   File Created with BHLUMI'
       WRITE(m_EvtUnit, '(a)')'-->'
       WRITE(m_EvtUnit, '(a)')'<init>'
       WRITE(m_EvtUnit, '(A, es17.8, A, es17.8, A)' )'  11  -11  ', CMSENE/2.,'  ', CMSENE/2. , '  0  0  0  0  3  1'  
@@ -1333,19 +1334,31 @@
 
       END
       
-      SUBROUTINE WRITE_LHE(m_EvtUnit)
+      SUBROUTINE WRITE_LHE(m_EvtUnit, CMSENE )
 !     **********************
 ! THIS PRINTS OUT FOUR MOMENTA OF PHOTONS
 ! ON OUTPUT UNIT NOUT
       IMPLICIT REAL*8(A-H,O-Z)
       INTEGER nhep
-      DOUBLE PRECISION AlphaQED, AlphaQCD, mass_e, p_e
+      DOUBLE PRECISION AlphaQED, AlphaQCD, mass_e, CMSENE, MZstar
       COMMON / MOMSET / P1(4),Q1(4),P2(4),Q2(4),PHOT(100,4),NPHOT
       SAVE   / MOMSET /
       REAL*8 SUM(4)
 
-      mass_e=5.118E-004
-      p_e= SQRT(((CMSENE/2.)**2-mass_e**2))
+      DO J=1,5
+         SUM(J)=0.
+      ENDDO
+      
+      mass_e=5.1099906999999998E-004
+
+      
+      DO I=1,NPHOT
+         DO J=1,5
+            SUM(J)= SUM(J)+ PHOT(I,J)
+         ENDDO
+      ENDDO
+
+      MZstar=SQRT( (CMSENE-SUM(4))**2 - (SUM(1))**2 - (SUM(2))**2-(SUM(3))**2)
 
       AlphaQCD=0.1201789
       AlphaQED=137.03604D0
@@ -1354,19 +1367,24 @@
       WRITE(m_EvtUnit,'(a)')  '<event>'
       nhep=NPHOT+5
       
+
+         
+
+
+      
       ! nphotons+5, 2 incomming electrons 2 outgoing electrons and 1 photon/z
       WRITE(m_EvtUnit,*) nhep, 9999, 1., CMSENE, 1./AlphaQED, AlphaQCD 
       !WRITE(m_EvtUnit,*) 11, -1, 0, 0, 0, 0., 0., p_e, CMSENE/2., mass_e, 0 , 0
       !WRITE(m_EvtUnit,*) -11, -1, 0, 0, 0, 0., 0., -p_e, CMSENE/2., mass_e, 0 , 0 
-      WRITE(m_EvtUnit,*) 11, -1, 0, 0, 0, Q1(1), Q1(2), Q1(3), Q1(4), mass_e, 0 , 0  
-      WRITE(m_EvtUnit,*) -11, -1, 0, 0, 0, P1(1), P1(2), P1(3), P1(4), mass_e, 0 , 0 
-      WRITE(m_EvtUnit,*) 23, 2, 1, 2, 0, 0., 0., 0., CMSENE/2., CMSENE/2., 0, 0
+      WRITE(m_EvtUnit,*)  11, -1, 0, 0, 0, 0, Q1(1), Q1(2), Q1(3), Q1(4), mass_e, 0 , 0  
+      WRITE(m_EvtUnit,*) -11, -1, 0, 0, 0, 0, P1(1), P1(2), P1(3), P1(4), mass_e, 0 , 0 
+      WRITE(m_EvtUnit,*)  23,  2, 1, 2, 0, 0, -SUM(1), -SUM(2), -SUM(3), CMSENE-SUM(4),MZstar, 0, 0
 ! what is written above is a dummy, it's there just to make LHE file, but it's not actuall simulation
       DO I=1,NPHOT
-         WRITE(m_EvtUnit,*) 22, 1 , 0, 0, 0 ,0, PHOT(I,1), PHOT(I,2), PHOT(I,3), PHOT(I,4), 0, 0 
+         WRITE(m_EvtUnit,*) 22, 1 , 1, 2, 0 ,0, PHOT(I,1), PHOT(I,2), PHOT(I,3), PHOT(I,4), 0., 0, 0 
       ENDDO
-      WRITE(m_EvtUnit,*) 11,  1, 3, 3, 0, Q2(1), Q2(2), Q2(3), Q2(4), mass_e, 0 , 0
-      WRITE(m_EvtUnit,*) -11, 1, 3, 3, 0, P2(1), P2(2), P2(3), P2(4), mass_e, 0 , 0
+      WRITE(m_EvtUnit,*) 11,  1, 3, 3, 0, 0, Q2(1), Q2(2), Q2(3), Q2(4), mass_e, 0 , 0
+      WRITE(m_EvtUnit,*) -11, 1, 3, 3, 0, 0, P2(1), P2(2), P2(3), P2(4), mass_e, 0 , 0
       
       
       WRITE(m_EvtUnit,'(a)')  '</event>'

@@ -278,7 +278,7 @@ C     ************************
           CALL BHLUMI(   0,XPAR,NPAR)  
           IF(IEV.LE. 4) CALL DUMPS( 6)       
           IF(IEV.LE. 4) CALL DUMPS(16)
-          IF( m_WriteLHE .EQ. 1) CALL WRITE_LHE(77) 
+          IF( m_WriteLHE .EQ. 1) CALL WRITE_LHE(77, CMSENE ) 
 !         ============================================
 !         Histograming 
           IF(KAT1.EQ.1) CALL ROBOL1( 0) 
