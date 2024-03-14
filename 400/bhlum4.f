@@ -1315,22 +1315,22 @@
       ! subrutine that inits the LHE file
       DOUBLE PRECISION CMSENE
       
-      OPEN(m_EvtUnit, file = "out.lhe")
-      WRITE(m_EvtUnit, '(a)')'<LesHouchesEvents version="1.0">'
-      WRITE(m_EvtUnit, '(a)')'<!--'
-      WRITE(m_EvtUnit, '(a)')'   File Created with BHLUMI'
-      WRITE(m_EvtUnit, '(a)')'-->'
-      WRITE(m_EvtUnit, '(a)')'<init>'
-      WRITE(m_EvtUnit, '(A, es17.8, A, es17.8, A)' )'  11  -11  ', CMSENE/2.,'  ', CMSENE/2. , '  0  0  0  0  3  1'  
-      WRITE(m_EvtUnit, '(a)')'  0.1  1.0e-06  1.000000e+00   9999'                                                   
-      WRITE(m_EvtUnit, '(a)')'</init>'                                                                               
-      WRITE(m_EvtUnit, '(a)')'  '                                                                                    
+      OPEN(m_EvtUnit, file = "hepevt.txt")
+!1    WRITE(m_EvtUnit, '(a)')'<LesHouchesEvents version="1.0">'
+!1    WRITE(m_EvtUnit, '(a)')'<!--'
+!1    WRITE(m_EvtUnit, '(a)')'   File Created with BHLUMI'
+!1    WRITE(m_EvtUnit, '(a)')'-->'
+!1    WRITE(m_EvtUnit, '(a)')'<init>'
+!1    WRITE(m_EvtUnit, '(A, es17.8, A, es17.8, A)' )'  11  -11  ', CMSENE/2.,'  ', CMSENE/2. , '  0  0  0  0  3  1'  
+!1    WRITE(m_EvtUnit, '(a)')'  0.1  1.0e-06  1.000000e+00   9999'                                                   
+!1    WRITE(m_EvtUnit, '(a)')'</init>'                                                                               
+!1    WRITE(m_EvtUnit, '(a)')'  '                                                                                    
 
       END
       
       SUBROUTINE END_LHE(m_EvtUnit)
       ! subrutine that ends the LHE file   
-      WRITE(m_EvtUnit, '(a)') '</LesHouchesEvents>'
+!1    WRITE(m_EvtUnit, '(a)') '</LesHouchesEvents>'
 
       END
       
@@ -1364,30 +1364,37 @@
       AlphaQED=137.03604D0
       
 
-      WRITE(m_EvtUnit,'(a)')  '<event>'
+!1    WRITE(m_EvtUnit,'(a)')  '<event>'
       nhep=NPHOT+5
       
-
-         
+      WRITE(m_EvtUnit,*) nhep
+      WRITE(m_EvtUnit,*)  3,  11, 0, 0, Q1(1), Q1(2), Q1(3), mass_e
+      WRITE(m_EvtUnit,*)  3, -11, 0, 0, P1(1), P1(2), P1(3), mass_e
+      WRITE(m_EvtUnit,*)  2,  23, 0, 0, -SUM(1), -SUM(2), -SUM(3),MZstar
+      DO I=1,NPHOT
+         WRITE(m_EvtUnit,*) 1, 22, 0 ,0, PHOT(I,1), PHOT(I,2), PHOT(I,3), 0
+      ENDDO
+      WRITE(m_EvtUnit,*) 1,  11, 0, 0, Q2(1), Q2(2), Q2(3), mass_e
+      WRITE(m_EvtUnit,*) 1, -11, 0, 0, P2(1), P2(2), P2(3), mass_e
 
 
       
       ! nphotons+5, 2 incomming electrons 2 outgoing electrons and 1 photon/z
-      WRITE(m_EvtUnit,*) nhep, 9999, 1., CMSENE, 1./AlphaQED, AlphaQCD 
+!1    WRITE(m_EvtUnit,*) nhep, 9999, 1., CMSENE, 1./AlphaQED, AlphaQCD 
       !WRITE(m_EvtUnit,*) 11, -1, 0, 0, 0, 0., 0., p_e, CMSENE/2., mass_e, 0 , 0
       !WRITE(m_EvtUnit,*) -11, -1, 0, 0, 0, 0., 0., -p_e, CMSENE/2., mass_e, 0 , 0 
-      WRITE(m_EvtUnit,*)  11, -1, 0, 0, 0, 0, Q1(1), Q1(2), Q1(3), Q1(4), mass_e, 0 , 0  
-      WRITE(m_EvtUnit,*) -11, -1, 0, 0, 0, 0, P1(1), P1(2), P1(3), P1(4), mass_e, 0 , 0 
-      WRITE(m_EvtUnit,*)  23,  2, 1, 2, 0, 0, -SUM(1), -SUM(2), -SUM(3), CMSENE-SUM(4),MZstar, 0, 0
+!1    WRITE(m_EvtUnit,*)  11, -1, 0, 0, 0, 0, Q1(1), Q1(2), Q1(3), Q1(4), mass_e, 0 , 0  
+!1    WRITE(m_EvtUnit,*) -11, -1, 0, 0, 0, 0, P1(1), P1(2), P1(3), P1(4), mass_e, 0 , 0 
+!1    WRITE(m_EvtUnit,*)  23,  2, 1, 2, 0, 0, -SUM(1), -SUM(2), -SUM(3), CMSENE-SUM(4),MZstar, 0, 0
 ! what is written above is a dummy, it's there just to make LHE file, but it's not actuall simulation
-      DO I=1,NPHOT
-         WRITE(m_EvtUnit,*) 22, 1 , 1, 2, 0 ,0, PHOT(I,1), PHOT(I,2), PHOT(I,3), PHOT(I,4), 0., 0, 0 
-      ENDDO
-      WRITE(m_EvtUnit,*) 11,  1, 3, 3, 0, 0, Q2(1), Q2(2), Q2(3), Q2(4), mass_e, 0 , 0
-      WRITE(m_EvtUnit,*) -11, 1, 3, 3, 0, 0, P2(1), P2(2), P2(3), P2(4), mass_e, 0 , 0
+!1    DO I=1,NPHOT
+!1       WRITE(m_EvtUnit,*) 22, 1 , 1, 2, 0 ,0, PHOT(I,1), PHOT(I,2), PHOT(I,3), PHOT(I,4), 0., 0, 0 
+!1    ENDDO
+!1    WRITE(m_EvtUnit,*) 11,  1, 3, 3, 0, 0, Q2(1), Q2(2), Q2(3), Q2(4), mass_e, 0 , 0
+!1    WRITE(m_EvtUnit,*) -11, 1, 3, 3, 0, 0, P2(1), P2(2), P2(3), P2(4), mass_e, 0 , 0
       
       
-      WRITE(m_EvtUnit,'(a)')  '</event>'
+!1    WRITE(m_EvtUnit,'(a)')  '</event>'
 
       END
       
